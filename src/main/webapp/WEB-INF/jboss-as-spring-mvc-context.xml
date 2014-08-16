@@ -15,7 +15,7 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-	<!-- mvc:resources mapping="/static/**" location="/"/>-->
+	<mvc:resources mapping="/static/**" location="/"/>
     <mvc:resources mapping="/images/**" location="/resources/images/" />
     <mvc:resources mapping="/css/**" location="/resources/css/" />
 	<mvc:default-servlet-handler />

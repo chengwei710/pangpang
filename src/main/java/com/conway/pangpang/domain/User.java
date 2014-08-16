@@ -2,14 +2,19 @@ package com.conway.pangpang.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.ws.rs.DefaultValue;
 
+@Entity
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,6 +45,9 @@ public class User implements Serializable {
 	
 	@Column(name = "need_change_pwd")
 	private String needChangePwd;
+	
+	@Column(name = "pwd_change_date")
+	private Date pwdChangeDate;
 	
 	private Boolean rememberMe;
 

@@ -10,7 +10,7 @@ public interface UserDao {
     
     public User getLoginInfo(String userName, String password);
     
-    public UserInfo getUserInfoById();
+    public UserInfo getUserInfoById(Long userId);
 
 	public User getLoginInfoByName(String userName);
 

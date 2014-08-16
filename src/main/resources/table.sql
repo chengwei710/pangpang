@@ -1,23 +1,30 @@
+drop table module;
+drop table role;
+drop table user;
+drop table user_info;
+drop table user_role;
+drop table role_module;
+
 create table User (
-	id number(8) primary key, 
+	id long primary key, 
 	user_name varchar(20) not null, 
 	password varchar(32) not null, 
 	last_login_ip varchar(15),
 	last_login_time timestamp,
-	login_times number(2),
+	login_times int,
 	disabled char(1) default 'N',
 	need_change_pwd char(1) default 'N',
 	pwd_change_date date
 );
 
 create table User_Info(
-	user_id number(8),
+	user_id long,
 	nick_name varchar(20),
 	real_name varchar(30),
 	sex char(1),
-	age number(3),
-	dept_id number(8),
-	role_id nubmer(8),
+	age int,
+	dept_id long,
+	role_id long,
 	company varchar(50),
 	email varchar(50),
 	telephone varchar(20),
@@ -33,21 +40,21 @@ alter table User_Info
   references User(id);
   
 create table Role(
-	role_id number(8) primary key,
+	role_id long primary key,
 	role_name varchar(30),
-	role_type number(3),
+	role_type int,
 	description varchar(500),
 	disabled char(1),
 	create_date date,
-	create_user number(8),
+	create_user long,
 	update_date date,
-	update_user number(8)
+	update_user long
 );
 
 
 create table User_role(
-    user_id number(8),
-	role_id number(8)
+    user_id long,
+	role_id long
 );
 
 alter table User_role
@@ -58,24 +65,24 @@ alter table User_role
   references Role(role_id);
   
 create table Module(
-	module_id number(10) primary key,
-	parent_id number(10),
+	module_id long primary key,
+	parent_id long,
 	module_name varchar(50),
 	LEAF char(1),
 	URL varchar(100),
-	list_order number(2),
-	module_type number(2),
+	list_order int,
+	module_type int,
 	remark varchar(200) 
 );
 
 create table Role_module(
-	role_id number(8),
-	module_id number(10)
+	role_id long,
+	module_id long
 );
 
 alter table Role_module
   add constraint FK_Role_module_Role_ID foreign key (role_id)
   references Role(role_id);
 alter table Role_module
-  add constraint FK_Role_module_Role_ID foreign key (module_id)
+  add constraint FK_Role_module_module_ID foreign key (module_id)
   references Module(module_id);

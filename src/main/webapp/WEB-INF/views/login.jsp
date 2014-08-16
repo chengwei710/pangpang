@@ -12,7 +12,7 @@
 
 	<body>
 		<div id="container">
-			<form:form commandName="user" >
+			<form:form commandName="login" >
 				<div class="login">LOGIN</div>
 				<div class="username-text">Username:</div>
 				<div class="password-text">Password:</div>
@@ -22,7 +22,7 @@
 				<div class="password-field">
 					<form:password path="password"/>
 				</div>
-				<form:checkbox path="rememberMe" id="rememberMe"/><form:label path="rememberMe">Remember me</form:label>
+				<input type="checkbox" name="rememberMe" id="rememberMe"/><form:label path="rememberMe">Remember me</form:label>
 				<div class="forgot-usr-pwd">Forgot <a href="#">username</a> or <a href="#">password</a>?</div>
 				<input type="submit" name="submit" value="GO" />
 			</form:form>
