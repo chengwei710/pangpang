@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -32,6 +33,10 @@ public class User implements Serializable {
 	@NotNull
 	private String password;
 	
+	//this field do not save into DB
+	@Transient
+	private String rePassword;
+	
 	@Column(name = "last_login_ip")
 	private String lastLoginIp;
 	
@@ -49,6 +54,8 @@ public class User implements Serializable {
 	@Column(name = "pwd_change_date")
 	private Date pwdChangeDate;
 	
+	//this field do not save into DB
+	@Transient
 	private Boolean rememberMe;
 
 	public Long getId() {
@@ -122,5 +129,20 @@ public class User implements Serializable {
 	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
 	}
-	
+
+	public String getRePassword() {
+		return rePassword;
+	}
+
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
+
+	public Date getPwdChangeDate() {
+		return pwdChangeDate;
+	}
+
+	public void setPwdChangeDate(Date pwdChangeDate) {
+		this.pwdChangeDate = pwdChangeDate;
+	}
 }

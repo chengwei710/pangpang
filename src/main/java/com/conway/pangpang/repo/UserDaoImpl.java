@@ -67,5 +67,10 @@ public class UserDaoImpl implements UserDao {
 		em.merge(login);
 	}
 
+	@Override
+	public void register(User user) {
+		em.persist(user);
+	}
+
 	
 }

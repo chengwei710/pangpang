@@ -13,4 +13,5 @@ public interface MemberDao
     public List<Member> findAllOrderedByName();
 
     public void register(Member member);
+    
 }

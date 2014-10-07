@@ -8,6 +8,8 @@ public interface UserDao {
 	
     public void register(UserInfo userInfo);
     
+    public void register(User user);
+    
     public User getLoginInfo(String userName, String password);
     
     public UserInfo getUserInfoById(Long userId);

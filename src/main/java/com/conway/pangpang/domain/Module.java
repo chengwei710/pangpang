@@ -1,12 +1,16 @@
 package com.conway.pangpang.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
-public class Module  implements Serializable{
+@Entity
+public class Module implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,13 +29,20 @@ public class Module  implements Serializable{
 	
 	private String URL;
 	
+	private String icon;
+	
 	@Column(name="list_order")
 	private Integer listOrder;
 	
 	@Column(name="module_type")
 	private Integer moduleType;
 	
+	private Integer status;
+	
 	private String remark;
+	
+	@Transient
+	private List<Module> childModules;
 
 	public Long getModuleId() {
 		return moduleId;
@@ -95,5 +106,29 @@ public class Module  implements Serializable{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public List<Module> getChildModules() {
+		return childModules;
+	}
+
+	public void setChildModules(List<Module> childModules) {
+		this.childModules = childModules;
 	}
 }

@@ -1,6 +1,8 @@
 package com.conway.pangpang.utils;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MD5Utils {
 

@@ -4,12 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.ForeignKey;
 
 public class UserInfo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
+	
+	@OneToOne
+	@JoinColumn(name="id", table="user")
+	@Column(name="user_id")
+	private Long userId;
 
 	@Column(name = "nick_name")
 	private String nickName;
@@ -45,12 +52,12 @@ public class UserInfo implements Serializable {
 	@Column(name = "update_date")
 	private Date updateDate;
 
-	public Long getId() {
-		return id;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getNickName() {
