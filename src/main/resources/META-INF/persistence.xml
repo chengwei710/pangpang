@@ -12,6 +12,8 @@
       <properties>
 		 <property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/spring-quickstart/persistence" />
          <!-- Properties for Hibernate -->
+         <!-- create-drop : Create table when app start, and drop table when app shut down -->
+         <!-- update : Use the current table, only update when the structure of table changed -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="true" />
       </properties>

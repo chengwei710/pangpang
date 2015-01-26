@@ -74,7 +74,8 @@ create table pangpang.Module(
 
 create table pangpang.Role_module(
 	role_id int,
-	module_id int
+	module_id int,
+	privilege int default 0
 );
 
 alter table pangpang.Role_module
@@ -83,3 +84,5 @@ alter table pangpang.Role_module
 alter table pangpang.Role_module
   add constraint FK_Role_module_module_ID foreign key (module_id)
   references pangpang.Module(module_id);
+alter table pangpang.Role_module
+  modify column privilege int default 0 comment '1:update, 2:add, 4:remove, 8:grant';
