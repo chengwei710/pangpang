@@ -2,14 +2,22 @@ package com.conway.pangpang.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +35,10 @@ public class User implements Serializable {
 	@NotNull
 	private String password;
 	
+	//this field do not save into DB
+	@Transient
+	private String rePassword;
+	
 	@Column(name = "last_login_ip")
 	private String lastLoginIp;
 	
@@ -36,12 +48,21 @@ public class User implements Serializable {
 	@Column(name = "login_times")
 	private Integer loginTimes;
 	
-	private String disabled;
+	private String disabled = "N";
 	
 	@Column(name = "need_change_pwd")
-	private String needChangePwd;
+	private String needChangePwd = "N";
 	
+	@Column(name = "pwd_change_date")
+	private Date pwdChangeDate;
+	
+	//this field do not save into DB
+	@Transient
 	private Boolean rememberMe;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private UserInfo userInfo;
 
 	public Long getId() {
 		return id;
@@ -114,5 +135,28 @@ public class User implements Serializable {
 	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
 	}
-	
+
+	public String getRePassword() {
+		return rePassword;
+	}
+
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
+
+	public Date getPwdChangeDate() {
+		return pwdChangeDate;
+	}
+
+	public void setPwdChangeDate(Date pwdChangeDate) {
+		this.pwdChangeDate = pwdChangeDate;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
 }
