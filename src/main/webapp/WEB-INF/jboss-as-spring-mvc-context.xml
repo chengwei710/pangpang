@@ -15,9 +15,12 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-	<!-- mvc:resources mapping="/static/**" location="/"/>-->
+	<mvc:resources mapping="/static/**" location="/"/>
     <mvc:resources mapping="/images/**" location="/resources/images/" />
     <mvc:resources mapping="/css/**" location="/resources/css/" />
+    <mvc:resources mapping="/stylesheets/**" location="/resources/stylesheets/" />
+    <mvc:resources mapping="/javascripts/**" location="/resources/javascripts/" />
+    <mvc:resources mapping="/fonts/**" location="/resources/fonts/" />
 	<mvc:default-servlet-handler />
 	<!-- <mvc:default-servlet-handler/> -->
 

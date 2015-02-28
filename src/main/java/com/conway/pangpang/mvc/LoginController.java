@@ -5,13 +5,16 @@ import java.sql.Timestamp;
 import javax.validation.Valid;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.conway.pangpang.domain.User;
 import com.conway.pangpang.repo.UserDao;
@@ -22,7 +25,7 @@ import com.conway.pangpang.utils.MD5Utils;
 public class LoginController {
 	
 	public static final String ACTION_REDIRECT = "redirect:/";
-	public static final String PAGE_LOGIN = "login";
+	public static final String PAGE_LOGIN = "sign_in";
 	public static final String PAGE_HOME = "home";
 	public static final String PAGE_RESET_PASSWORD = "rest_password";
 	
@@ -33,52 +36,54 @@ public class LoginController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String display(Model model){
-		model.addAttribute("user", new User());
+		model.addAttribute("login", new User());
 		return PAGE_LOGIN;
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String login(@Valid User user, BindingResult result,
-			HttpServletRequest request) throws Exception {
+	public String login(@Valid @ModelAttribute("login") User login, BindingResult result,
+			HttpServletRequest request, HttpSession session) throws Exception {
 
 		if(result.hasErrors()){
 			return PAGE_LOGIN;
 		}
-		String userName = user.getUserName();
-		String password = user.getPassword();
+		String userName = login.getUserName();
+		String password = login.getPassword();
 		
-		User login = userDao.getLoginInfoByName(userName);
-		if(login != null){
+		User user = userDao.getLoginInfoByName(userName);
+		if(user != null){
 			//whether the user disabled
-			if(FLAG_YES.equals(login.getDisabled())){
+			if(FLAG_YES.equals(user.getDisabled())){
 				result.reject(null, "");
 				return PAGE_LOGIN;
 			}
 			//compare the password
-			if(!MD5Utils.encode(password).equals(login.getPassword())){
-				int loginTimes = login.getLoginTimes() + 1;
-				login.setLoginTimes(loginTimes);
+			if(!MD5Utils.encode(password).equals(user.getPassword())){
+				int loginTimes = user.getLoginTimes() + 1;
+				user.setLoginTimes(loginTimes);
 				if(loginTimes >= 5){
 					login.setDisabled(FLAG_YES);
 				}
-				userDao.updateLoginInfo(login);
+				userDao.updateLoginInfo(user);
 				
-				result.rejectValue("user.password", null, "");
+				result.rejectValue("password", null, "");
 				return PAGE_LOGIN;
 			}
-			login.setLastLoginIp(getIpAddr(request));
-			login.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
-			login.setLoginTimes(0);
-			userDao.updateLoginInfo(login);
+			user.setLastLoginIp(getIpAddr(request));
+			user.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
+			user.setLoginTimes(0);
+			userDao.updateLoginInfo(user);
 			
-			if(FLAG_YES.equals(login.getNeedChangePwd())){
+			if(FLAG_YES.equals(user.getNeedChangePwd())){
 				return PAGE_RESET_PASSWORD;
 			}
 
+			session.setAttribute("CurrentUser", user);
+			
 			return ACTION_REDIRECT + PAGE_HOME;
 		}else{
 			//user does not exist
-			result.rejectValue("user.userName", null, "");
+			result.rejectValue("userName", null, "");
 			return PAGE_LOGIN;
 		}
 	}

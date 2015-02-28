@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ehcache>
+
+<defaultCache maxElementsInMemory="200" eternal="true" overflowToDisk="false" memoryStoreEvictionPolicy="LFU"></defaultCache>
+
+<!-- cache for main menu -->
+<cache name="ehcache.main_menu" maxElementsInMemory="10" eternal="true" overflowToDisk="false" memoryStoreEvictionPolicy="LFU"/>\
+
+</ehcache>

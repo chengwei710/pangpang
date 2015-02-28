@@ -8,9 +8,11 @@ public interface UserDao {
 	
     public void register(UserInfo userInfo);
     
+    public void register(User user);
+    
     public User getLoginInfo(String userName, String password);
     
-    public UserInfo getUserInfoById();
+    public UserInfo getUserInfoById(Long userId);
 
 	public User getLoginInfoByName(String userName);
 
