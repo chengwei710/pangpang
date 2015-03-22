@@ -86,7 +86,7 @@ public class HomeController {
 					&& userModuleIds.contains(mod.getModuleId())) {
 				menuTree.add(mod);
 				if (!mod.isLEAF()) {
-					listAllChildrenModule(modules, module, userModuleIds);
+					listAllChildrenModule(modules, mod, userModuleIds);
 				}
 			}
 		}

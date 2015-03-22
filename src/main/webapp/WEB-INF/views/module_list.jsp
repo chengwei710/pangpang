@@ -3,36 +3,6 @@
 <%@page import="com.conway.pangpang.domain.Module" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript">
-function displayAllChildModule(moduleId){
-	
-	var trs = document.getElementsByTagName("tr");
-	if(trs && trs.length){
-		var needExpand = true;
-		for(var i=0; i<trs.length; i++){
-			if(trs[i].id.indexOf(moduleId+"_") >= 0){
-				if(trs[i].style.display =="" || trs[i].style.display =="table-row"){//document.all?"block":"table-row"
-					trs[i].style.display = "none";
-					needExpand = false;
-				}else{
-					trs[i].style.display = "table-row";
-					needExpand = true;
-				}
-			}
-		}
-		var mainTr = document.getElementById(moduleId);
-		if(mainTr){
-			var span = mainTr.getElementsByTagName("span");
-			if(span && span.length && needExpand){
-				span[0].className = "icon-collapse-alt";
-			}else if(span && span.length && !needExpand){
-				span[0].className = "icon-expand-alt";
-			}
-		}
-	}
-}
-</script>
-
 <%@include file="page_header.jsp"%>
 
 <section id='content'>
@@ -45,6 +15,7 @@ function displayAllChildModule(moduleId){
      <div class='span12'>
          <div class='page-header'>
              <h1 class='pull-left'>
+             	 <i class='icon-cog'></i>
                  <span>Module Management</span>
              </h1>
              <div class='pull-right'>
@@ -61,7 +32,7 @@ function displayAllChildModule(moduleId){
 
 <div class='row-fluid'>
 	<div class="span11 offset1 box">
-		<h4><a href="#"><span class="icon-plus"></span> Add module</a></h4>
+		<h4><a href="/pangpang/module/add"><span class="icon-plus"></span> Add module</a></h4>
 	</div>
 </div>
 <div class='row-fluid'>
@@ -118,10 +89,10 @@ function displayAllChildModule(moduleId){
          	<td><c:out value="${module.status}"/></td>
          	<td>
          	 <div class='text-right'>
-                 <a class='btn btn-success btn-mini' href='/pangpang/module?opera=update&moduleId=${module.moduleId}'>
+                 <a class='btn btn-success btn-mini' href='/pangpang/module/edit?moduleId=${module.moduleId}'>
                      <i class='icon-ok'></i>
                  </a>
-                 <a class='btn btn-danger btn-mini' href='/pangpang/module?opera=remove&moduleId=${module.moduleId }'>
+                 <a class='btn btn-danger btn-mini' href='/pangpang/module/remove?moduleId=${module.moduleId }'>
                      <i class='icon-remove'></i>
                  </a>
              </div>
@@ -137,10 +108,10 @@ function displayAllChildModule(moduleId){
          	<td><c:out value="${subMoudle.status}"/></td>
          	<td>
          	 <div class='text-right'>
-                 <a class='btn btn-success btn-mini' href='/pangpang/module?opera=update&moduleId=${subMoudle.moduleId}'>
+                 <a class='btn btn-success btn-mini' href='/pangpang/module/edit?moduleId=${subMoudle.moduleId}'>
                      <i class='icon-ok'></i>
                  </a>
-                 <a class='btn btn-danger btn-mini' href='/pangpang/module?opera=remove&moduleId=${subMoudle.moduleId }'>
+                 <a class='btn btn-danger btn-mini' href='/pangpang/module/remove?moduleId=${subMoudle.moduleId }'>
                      <i class='icon-remove'></i>
                  </a>
              </div>
@@ -161,3 +132,33 @@ function displayAllChildModule(moduleId){
 </div>
 </section>
 <%@include file="page_footer.jsp"%>
+
+<script type="text/javascript">
+function displayAllChildModule(moduleId){
+	
+	var trs = document.getElementsByTagName("tr");
+	if(trs && trs.length){
+		var needExpand = true;
+		for(var i=0; i<trs.length; i++){
+			if(trs[i].id.indexOf(moduleId+"_") >= 0){
+				if(trs[i].style.display =="" || trs[i].style.display =="table-row"){//document.all?"block":"table-row"
+					trs[i].style.display = "none";
+					needExpand = false;
+				}else{
+					trs[i].style.display = "table-row";
+					needExpand = true;
+				}
+			}
+		}
+		var mainTr = document.getElementById(moduleId);
+		if(mainTr){
+			var span = mainTr.getElementsByTagName("span");
+			if(span && span.length && needExpand){
+				span[0].className = "icon-collapse-alt";
+			}else if(span && span.length && !needExpand){
+				span[0].className = "icon-expand-alt";
+			}
+		}
+	}
+}
+</script>

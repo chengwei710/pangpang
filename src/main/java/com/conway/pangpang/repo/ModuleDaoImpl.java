@@ -36,6 +36,16 @@ public class ModuleDaoImpl implements ModuleDao {
 	}
 	
 	@Override
+	public List<Module> listAllMenuModules() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Module> criteria = cb.createQuery(Module.class);
+		Root<Module> module = criteria.from(Module.class);
+		//module.join();
+		
+		return null;
+	}
+	
+	@Override
 	@Cacheable(value = "ehcache.main_menu", key = "#userName+'_module_ids'")
 	public List<Long> listUserAccessableModuleIds(String userName) {
 		
@@ -82,6 +92,11 @@ public class ModuleDaoImpl implements ModuleDao {
 	@CacheEvict(value = "ehcache.main_menu")
 	public void insertModule(Module module) {
 		em.persist(module);
+	}
+
+	@Override
+	public Module loadModule(Long moduleId) {
+		return em.find(Module.class, moduleId);
 	}
 
 }

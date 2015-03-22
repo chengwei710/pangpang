@@ -25,6 +25,7 @@ public class ModuleController {
 	public static final String ACTION_REDIRECT = "redirect:/";
 	public static final String PAGE_LOGIN = "login";
 	private static final String PAGE_MODULE = "module_list";
+	private static final String PAGE_MODULE_DETAIL = "module_detail";
 	
 	@Autowired
 	private ModuleDao moduleDao;
@@ -53,13 +54,32 @@ public class ModuleController {
 		return PAGE_MODULE;
 	}
 	
-	public String addModule(Model model){
-		return null;
+	@RequestMapping(method=RequestMethod.POST)
+	public String saveModule(){
 		
+		return null;
 	}
 	
-	public String removeModule(){
-		
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	public String addModule(Model model){
+		model.addAttribute(moduleDao.listAllMenuModules());
+		model.addAttribute(new Module());
+		return PAGE_MODULE_DETAIL;
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.GET)
+	public String editModule(Model model, Long moduleId){
+		model.addAttribute(moduleDao.listAllMenuModules());
+		model.addAttribute(moduleDao.loadModule(moduleId));
+		return PAGE_MODULE_DETAIL;
+	}
+	
+	@RequestMapping(value="/remove", method=RequestMethod.GET)
+	public String removeModule(Long moduleId){
+		Module module = moduleDao.loadModule(moduleId);
+		if(module != null){
+			
+		}
 		return null;
 	}
 	
@@ -73,7 +93,7 @@ public class ModuleController {
 					&& userModuleIds.contains(mod.getModuleId())) {
 				menuTree.add(mod);
 				if (!mod.isLEAF()) {
-					listAllChildrenModule(modules, module, userModuleIds);
+					listAllChildrenModule(modules, mod, userModuleIds);
 				}
 			}
 		}

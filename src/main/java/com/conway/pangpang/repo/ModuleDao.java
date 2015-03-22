@@ -8,7 +8,11 @@ public interface ModuleDao {
 
 	public List<Module> listAllSystemModules();
 	
+	public List<Module> listAllMenuModules();
+	
 	public List<Long> listUserAccessableModuleIds(String userName);
+	
+	public Module loadModule(Long moduleId);
 	
 	public void deleteLeafModule(Module module);
 	
@@ -19,4 +23,6 @@ public interface ModuleDao {
 	public void updateModulesWithChildren(Module module);
 	
 	public void insertModule(Module module);
+
+	
 }

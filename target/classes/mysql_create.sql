@@ -1,4 +1,26 @@
+create table locale(
+	locale_id smallint,
+	language varchar(5),
+	country varchar(5),
+	variant varchar(10),
+	description varchar(50)
+);
 
+create table resource(
+	resource_code varchar(20),
+	locale_id smallint,
+	message varchar(200),
+	source_table varchar(20),
+	insert_time	datetime,
+	insert_user int,
+	update_time datetime,
+	update_user int
+);
+
+create table error_info(
+	error_code varchar(20),
+	description varchar(200)
+);
 
 create table pangpang.User (
 	id int primary key, 
@@ -86,3 +108,17 @@ alter table pangpang.Role_module
   references pangpang.Module(module_id);
 alter table pangpang.Role_module
   modify column privilege int default 0 comment '1:update, 2:add, 4:remove, 8:grant';
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+-----------------------------------------------------------
+insert into locale values(1, 'zh', 'CN', '', '简体中文-中国');
+insert into locale values(2, 'en', 'US', '', 'English-United States');

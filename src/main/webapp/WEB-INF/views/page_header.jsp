@@ -16,11 +16,9 @@
     <link href='<c:url value="/stylesheets/light-theme.css"/>' id='color-settings-body-color' media='all' rel='stylesheet' type='text/css' />
     <!-- / jquery ui -->
     <link href='<c:url value="/stylesheets/jquery_ui/jquery-ui-1.10.0.custom.css"/>' media='all' rel='stylesheet' type='text/css' />
-    
     <!-- / jquery -->
 	<script src='<c:url value="/javascripts/jquery/jquery.min.js"/>' type='text/javascript'></script>
 	<script src='<c:url value="/javascripts/jquery_ui/jquery-ui.min.js"/>' type='text/javascript'></script>
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body class='contrast-red '>
