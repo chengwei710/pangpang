@@ -16,6 +16,16 @@
   <listener>
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+  <filter>
+  	<filter-name>authority</filter-name>
+  	<filter-class>com.conway.pangpang.web.filter.AuthorityFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>authority</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <servlet>
 	<servlet-name>jboss-as-kitchensink</servlet-name>

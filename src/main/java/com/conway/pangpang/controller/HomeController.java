@@ -1,4 +1,4 @@
-package com.conway.pangpang.mvc;
+package com.conway.pangpang.controller;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -13,21 +13,18 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.conway.pangpang.domain.Module;
 import com.conway.pangpang.domain.User;
 import com.conway.pangpang.repo.ModuleDao;
+import com.conway.pangpang.support.constants.CachedPropertyNameDefine;
+import com.conway.pangpang.support.constants.RequestPathDefine;
 
 @Controller
 @RequestMapping(value="/home")
-public class HomeController {
-	
-	public static final String ACTION_REDIRECT = "redirect:/";
-	public static final String PAGE_LOGIN = "login";
-	public static final String PAGE_HOME = "home";
+public class HomeController {	
 	
 	@Autowired
 	private ModuleDao moduleDao;
@@ -35,9 +32,9 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String display(HttpSession session) throws Exception {
 
-		User user = (User) session.getAttribute("CurrentUser");
+		User user = (User) session.getAttribute(CachedPropertyNameDefine.CURRENT_USER_IN_SESSION);
 		if (user == null) {
-			return ACTION_REDIRECT + PAGE_LOGIN;
+			return redirectTo(RequestPathDefine.ACTION_PATH_LOGIN);
 		}
 		List<Long> userModuleIds = moduleDao.listUserAccessableModuleIds(user
 				.getUserName());
@@ -53,9 +50,9 @@ public class HomeController {
 			}
 		}
 		
-		session.setAttribute("main_menu", generateJsonString(menuTree));
+		session.setAttribute(CachedPropertyNameDefine.CACHED_MAIN_MENU, generateJsonString(menuTree));
 		
-		return PAGE_HOME;
+		return RequestPathDefine.ACTION_PATH_HOME;
 	}
 
 	private String generateJsonString(Object menuTree)
@@ -91,6 +88,10 @@ public class HomeController {
 			}
 		}
 		module.setChildModules(new ArrayList<Module>(menuTree));
+	}
+	
+	private String redirectTo(String pageHome) {
+		return RequestPathDefine.ACTION_REDIRECT + pageHome;
 	}
 	
 	class ModuleComparator implements Comparator<Module>{

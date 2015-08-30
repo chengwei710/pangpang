@@ -1,4 +1,4 @@
-package com.conway.pangpang.mvc;
+package com.conway.pangpang.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.conway.pangpang.domain.Module;
 import com.conway.pangpang.domain.User;
 import com.conway.pangpang.repo.ModuleDao;
+import com.conway.pangpang.support.constants.CachedPropertyNameDefine;
 
 @Controller
 @RequestMapping(value="/module")
@@ -33,7 +34,7 @@ public class ModuleController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String display(HttpSession session, Model model){
 		
-		User user = (User) session.getAttribute("CurrentUser");
+		User user = (User) session.getAttribute(CachedPropertyNameDefine.CURRENT_USER_IN_SESSION);
 		if (user == null) {
 			return ACTION_REDIRECT + PAGE_LOGIN;
 		}

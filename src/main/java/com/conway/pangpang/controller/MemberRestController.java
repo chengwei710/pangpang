@@ -1,4 +1,4 @@
-package com.conway.pangpang.mvc;
+package com.conway.pangpang.controller;
 
 import java.util.List;
 
